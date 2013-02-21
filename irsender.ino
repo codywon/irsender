@@ -25,11 +25,11 @@ void loop() {
     // The button is pressed
     if (buttonState == HIGH) {
       if (nextPress == 0) {
-        volumeUp();
+        channelUp();
         //channelUp();
       } else if (nextPress == 1) {
         //channelDown();
-        volumeDown();
+        channelDown();
       }  else if (nextPress == 2) {
         volumeUp();
       }  else if (nextPress == 3) {
@@ -82,50 +82,50 @@ void powerCode() {
 }
 
 void channel(boolean up) {
-  onOff(4488, 4368);
-  onOff(592, 1600);
-  onOff(588, 1600);
+  onOff(4500, 4400);
   onOff(600, 1600);
-  onOff(592, 504);
-  onOff(588, 504);
-  onOff(588, 512);
-  onOff(588, 504);
-  onOff(592, 504);
-  onOff(588, 1600);
-  onOff(596, 1596);
-  onOff(596, 1604);
-  onOff(588, 512);
-  onOff(588, 504);
-  onOff(588, 504);
-  onOff(596, 500);
-  onOff(592, 504);
-  onOff(584, 508);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
   // 19
   if (up) {
-    onOff(588, 1600); // Channel up
+    onOff(600, 1600); // Channel up
   } else {
-    onOff(588, 508); // Channel down
+    onOff(600, 500); // Channel down
   }
-  onOff(588, 508);
-  onOff(592, 500);
-  onOff(592, 1600);
-  onOff(592, 504);
-  onOff(592, 504);
-  onOff(592, 504);
-  onOff(588, 1608);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 1600);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 1600);
   // 27
   if (up) {
-    onOff(588, 500); // Channel up
+    onOff(600, 500); // Channel up
   } else {
-    onOff(588, 1600); // Channel down
+    onOff(600, 1600); // Channel down
   }
-  onOff(600, 1596);
-  onOff(592, 1600);
-  onOff(588, 508);
-  onOff(592, 1600);
-  onOff(588, 1608);
-  onOff(584, 1608);
-  onOff(592, 0);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 500);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 0);
 }
 
 void channelUp() {
@@ -137,25 +137,25 @@ void channelDown() {
 }
 
 void volume(boolean up) {
-  onOff(4484, 4368);
-  onOff(592, 1604);
-  onOff(592, 1600);
-  onOff(588, 1604);
-  onOff(588, 504);
-  onOff(596, 504);
-  onOff(588, 504);
-  onOff(592, 500);
+  onOff(4500, 4400);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 1600);
   onOff(600, 500);
-  onOff(592, 1600);
-  onOff(588, 1600);
-  onOff(596, 1600);
-  onOff(596, 500);
-  onOff(592, 508);
-  onOff(588, 500);
-  onOff(596, 500);
-  onOff(596, 500);
-  onOff(588, 1604);
-  onOff(592, 1604);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 1600);
+  onOff(600, 1600);
   // 20 and 21
   if (up) {
     onOff(600, 1600);
@@ -164,12 +164,12 @@ void volume(boolean up) {
     onOff(600, 500);
     onOff(600, 1600);
   }
-  onOff(584, 504);
-  onOff(592, 504);
-  onOff(592, 504);
-  onOff(584, 508);
-  onOff(592, 504);
-  onOff(592, 504);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
+  onOff(600, 500);
   // 28 and 29
   if (up) {
     onOff(600, 500);
@@ -178,11 +178,11 @@ void volume(boolean up) {
     onOff(600, 1600);
     onOff(600, 500);
   }
-  onOff(596, 1604);
-  onOff(592, 1600);
-  onOff(592, 1600);
-  onOff(596, 1600);
-  onOff(596, 0);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 1600);
+  onOff(600, 0);
 }
 
 void volumeUp() {
