@@ -2,9 +2,11 @@
 #define BUTTON_PIN 7
 #define PULSE_TIME 13
 #define FREQUENCY 26
+#define NUM_ACTIONS 2
 
 int buttonState = 0;         // current state of the button
 int lastButtonState = 0;     // previous state of the button
+int nextPress = 0;
 
 void onOff(unsigned int on_time, unsigned int off_time);
 void sendIR(unsigned int microseconds);
@@ -22,7 +24,19 @@ void loop() {
   if (buttonState != lastButtonState) {
     // The button is pressed
     if (buttonState == HIGH) {
-      powerCode();      
+      if (nextPress == 0) {
+        volumeUp();
+        //channelUp();
+      } else if (nextPress == 1) {
+        //channelDown();
+        volumeDown();
+      }  else if (nextPress == 2) {
+        volumeUp();
+      }  else if (nextPress == 3) {
+        volumeDown();
+      }
+      nextPress += 1;
+      nextPress %= NUM_ACTIONS;
     }
   }
   // save the current state as the last state, 
@@ -65,6 +79,118 @@ void powerCode() {
   onOff(588, 1600);
   onOff(592, 1604);
   onOff(588, 0);
+}
+
+void channel(boolean up) {
+  onOff(4488, 4368);
+  onOff(592, 1600);
+  onOff(588, 1600);
+  onOff(600, 1600);
+  onOff(592, 504);
+  onOff(588, 504);
+  onOff(588, 512);
+  onOff(588, 504);
+  onOff(592, 504);
+  onOff(588, 1600);
+  onOff(596, 1596);
+  onOff(596, 1604);
+  onOff(588, 512);
+  onOff(588, 504);
+  onOff(588, 504);
+  onOff(596, 500);
+  onOff(592, 504);
+  onOff(584, 508);
+  // 19
+  if (up) {
+    onOff(588, 1600); // Channel up
+  } else {
+    onOff(588, 508); // Channel down
+  }
+  onOff(588, 508);
+  onOff(592, 500);
+  onOff(592, 1600);
+  onOff(592, 504);
+  onOff(592, 504);
+  onOff(592, 504);
+  onOff(588, 1608);
+  // 27
+  if (up) {
+    onOff(588, 500); // Channel up
+  } else {
+    onOff(588, 1600); // Channel down
+  }
+  onOff(600, 1596);
+  onOff(592, 1600);
+  onOff(588, 508);
+  onOff(592, 1600);
+  onOff(588, 1608);
+  onOff(584, 1608);
+  onOff(592, 0);
+}
+
+void channelUp() {
+  channel(true);
+}
+
+void channelDown() {
+  channel(false);
+}
+
+void volume(boolean up) {
+  onOff(4484, 4368);
+  onOff(592, 1604);
+  onOff(592, 1600);
+  onOff(588, 1604);
+  onOff(588, 504);
+  onOff(596, 504);
+  onOff(588, 504);
+  onOff(592, 500);
+  onOff(600, 500);
+  onOff(592, 1600);
+  onOff(588, 1600);
+  onOff(596, 1600);
+  onOff(596, 500);
+  onOff(592, 508);
+  onOff(588, 500);
+  onOff(596, 500);
+  onOff(596, 500);
+  onOff(588, 1604);
+  onOff(592, 1604);
+  // 20 and 21
+  if (up) {
+    onOff(600, 1600);
+    onOff(600, 500);
+  } else {
+    onOff(600, 500);
+    onOff(600, 1600);
+  }
+  onOff(584, 504);
+  onOff(592, 504);
+  onOff(592, 504);
+  onOff(584, 508);
+  onOff(592, 504);
+  onOff(592, 504);
+  // 28 and 29
+  if (up) {
+    onOff(600, 500);
+    onOff(600, 1600);
+  } else {
+    onOff(600, 1600);
+    onOff(600, 500);
+  }
+  onOff(596, 1604);
+  onOff(592, 1600);
+  onOff(592, 1600);
+  onOff(596, 1600);
+  onOff(596, 0);
+}
+
+void volumeUp() {
+  volume(true);
+}
+
+void volumeDown() {
+  volume(false);
 }
 
 /* Turns IR on for on_time microseconds, then stays off
