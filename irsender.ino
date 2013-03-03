@@ -2,7 +2,7 @@
 #define BUTTON_PIN 7
 #define PULSE_TIME 13
 #define FREQUENCY 26
-#define NUM_ACTIONS 2
+#define NUM_ACTIONS 4
 
 int buttonState = 0;         // current state of the button
 int lastButtonState = 0;     // previous state of the button
@@ -25,6 +25,7 @@ void loop() {
     // The button is pressed
     if (buttonState == HIGH) {
       if (nextPress == 0) {
+        //powerCode();
         channelUp();
         //channelUp();
       } else if (nextPress == 1) {
@@ -45,152 +46,67 @@ void loop() {
 }
 
 void powerCode() {
-  onOff(4480, 4372);
-  onOff(588, 1600);
-  onOff(596, 1600);
-  onOff(592, 1600);
-  onOff(588, 508);
-  onOff(588, 508);
-  onOff(584, 508);
-  onOff(588, 504);
-  onOff(588, 508);
-  onOff(584, 1608);
-  onOff(588, 1600);
-  onOff(596, 1604);
-  onOff(584, 504);
-  onOff(592, 504);
-  onOff(588, 508);
-  onOff(584, 512);
-  onOff(584, 500);
-  onOff(600, 500);
-  onOff(588, 1604);
-  onOff(592, 500);
-  onOff(592, 504);
-  onOff(584, 508);
-  onOff(588, 508);
-  onOff(588, 504);
-  onOff(592, 508);
-  onOff(580, 1604);
-  onOff(596, 500);
-  onOff(588, 1604);
-  onOff(592, 1600);
-  onOff(592, 1604);
-  onOff(588, 1604);
-  onOff(588, 1600);
-  onOff(592, 1604);
-  onOff(588, 0);
-}
+  sendCode(B11100000,
+           B11100000,
+           B01000000,
+           B10111111);
 
-void channel(boolean up) {
-  onOff(4500, 4400);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  // 19
-  if (up) {
-    onOff(600, 1600); // Channel up
-  } else {
-    onOff(600, 500); // Channel down
-  }
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 1600);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 1600);
-  // 27
-  if (up) {
-    onOff(600, 500); // Channel up
-  } else {
-    onOff(600, 1600); // Channel down
-  }
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 500);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 0);
 }
 
 void channelUp() {
-  channel(true);
+  sendCode(B11100000,
+           B11100000,
+           B01001000,
+           B10110111);
 }
 
 void channelDown() {
-  channel(false);
-}
+  sendCode(B11100000,
+           B11100000,
+           B00001000,
+           B11110111);
 
-void volume(boolean up) {
-  onOff(4500, 4400);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  // 20 and 21
-  if (up) {
-    onOff(600, 1600);
-    onOff(600, 500);
-  } else {
-    onOff(600, 500);
-    onOff(600, 1600);
-  }
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  onOff(600, 500);
-  // 28 and 29
-  if (up) {
-    onOff(600, 500);
-    onOff(600, 1600);
-  } else {
-    onOff(600, 1600);
-    onOff(600, 500);
-  }
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 1600);
-  onOff(600, 0);
 }
 
 void volumeUp() {
-  volume(true);
+  sendCode(B11100000,
+           B11100000,
+           B11100000,
+           B00011111);
 }
 
 void volumeDown() {
-  volume(false);
+  sendCode(B11100000,
+           B11100000,
+           B11010000,
+           B00101111);
+
+}
+
+void sendByte(byte b) {
+  for (int i = 7; i >= 0; i -= 1) {
+    if (b & (1 << i)) {
+      onOff(600, 1600);
+    } else {
+      onOff(600, 500);
+   }
+  }
+}
+
+/* Reads the bits in each of the bytes interpreting 1 as 
+ * a long off and 0 as a short off
+ */
+void sendCode(byte hi1, byte hi2, byte lo1, byte lo2) {
+  // the start of all the codes
+  onOff(4500, 4400);
+
+  sendByte(hi1);
+  sendByte(hi2);
+  sendByte(lo1);
+  sendByte(lo2);
+
+  // The final pulse
+  onOff(600, 0);
 }
 
 /* Turns IR on for on_time microseconds, then stays off
